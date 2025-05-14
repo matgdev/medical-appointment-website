@@ -3,11 +3,28 @@ import './App.css'
 
 import { Layout } from './Layout';
 import { Login } from './Login';
+import type React from 'react';
+import { Appointments } from './Appointments';
 
-function App() {
+type frameKey = "login" | "appointments";
+interface frameValue {
+    title: string,
+    Frame: React.FC
+}
+
+const frameMap: Record<frameKey, frameValue> = {
+    login: {title: "Dev's Hospital - Log in", Frame: Login},
+    appointments: {title: "My appointments", Frame: Appointments},
+}
+
+
+function App({frame}: {frame: frameKey}) {
+
+    const {title, Frame} = frameMap[frame];
+
     return(
-        <Layout title="Dev's Hospital - Log in">
-            <Login />
+        <Layout title={title}>
+            <Frame />
         </Layout>
     );
 }
