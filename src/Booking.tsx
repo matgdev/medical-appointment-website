@@ -69,9 +69,9 @@ export function Booking() {
     if (progress !== 5)
         return (
             <>
-                <Stack className={`px-4 ${showConfirmationDialog === true ? "invisible" : "visible"}`} gap={3}>
-                    <Row className="m-0" style={{height: "5px"}}>
-                        <ProgressBar now={progress * 25} className="px-0 h-100"/>
+                <Stack className={`px-4 ${showConfirmationDialog === true ? "invisible" : "visible"}`} gap={2}>
+                    <Row className="m-0" style={{ height: "5px" }}>
+                        <ProgressBar now={progress * 25} className="px-0 h-100" />
                     </Row>
 
                     <Row className="m-0 flex-grow-1">
@@ -142,16 +142,18 @@ export function Booking() {
             <>
                 <div className={`w-100 d-flex flex-column justify-content-center align-items-center ${submitDialog.type === "" ? "visible" : "invisible"}`}>
                     <div>Submitting your booking...</div>
-                    <div className="mb-3">Please wait a moment while we confirm your appointment.</div>
+                    <div className="mb-3 text-center">Please wait a moment while we confirm your appointment.</div>
                     <div>
                         <Spinner variant="primary" />
                     </div>
                 </div>
 
                 <Modal show={submitDialog.type !== ""} centered>
-                    <Modal.Body className="text-bg-success" as={Stack} gap={3}>
+                    <Modal.Body className="text-center" as={Stack} gap={3}>
                         {submitDialog.message}
-                        <Button onClick={() => navigate("/appointments")}>Close</Button>
+                        <Button 
+                        variant="outline-success"
+                        onClick={() => navigate("/appointments")}>Close</Button>
                     </Modal.Body>
                 </Modal>
             </>
@@ -160,16 +162,16 @@ export function Booking() {
 }
 
 function ControlGroup({ id, value, onChange, title, children, buttonDisabled, onNext, hide }:
-    { id: string, value?: string | number , onChange?: (event: any) => void, title?: string, children: JSX.Element | Array<JSX.Element>, buttonDisabled: boolean, onNext: () => void, hide: boolean }) {
+    { id: string, value?: string | number, onChange?: (event: any) => void, title?: string, children: JSX.Element | Array<JSX.Element>, buttonDisabled: boolean, onNext: () => void, hide: boolean }) {
 
+    const navigate = useNavigate();
     const body = id === "date"
         ? <>{children}</>
         : (
-            <Form.Select 
-                onChange={onChange} 
+            <Form.Select
+                onChange={onChange}
                 value={value}
-                className="bg-secondary-subtle text-secondary-emphasis my-select"
-                >
+            >
                 <option value="-1">Click to show options...</option>
                 {children}
             </Form.Select>
@@ -179,18 +181,27 @@ function ControlGroup({ id, value, onChange, title, children, buttonDisabled, on
         <Form.Group
             controlId={id}
             className={`h-100 ${hide === true ? " d-none" : ""}`}
-            as={Stack} gap={3}>
-            
-            <Form.Label className="fs-3">{title}</Form.Label>
+            as={Stack}>
+
+            <Form.Label className="fs-3 mb-2">{title}</Form.Label>
 
             {body}
 
-            <Button 
-                className="mt-auto rounded-0"
-                disabled={buttonDisabled}
-                onClick={onNext}
-            >Next
-            </Button>
+            <Stack direction="horizontal" className="mt-auto w-100" gap={2}>
+                <Button
+                    variant="danger"
+                    onClick={() => navigate("/appointments")}>
+                    Cancel
+                </Button>
+                <Button
+                    className="flex-grow-1"
+                    disabled={buttonDisabled}
+                    onClick={onNext}>
+                    Next
+                </Button>
+            </Stack>
+
+
         </Form.Group>
     );
 
@@ -198,6 +209,8 @@ function ControlGroup({ id, value, onChange, title, children, buttonDisabled, on
 
 function DetailsModal({ returnToField, show, specialty, location, doctor, date, onSubmit }
     : { returnToField: (name: string) => void, show: boolean, specialty: number, location: number, doctor: number, date: string, onSubmit: () => void }) {
+
+    const navigate = useNavigate();
 
     const children = [
         { title: "Specialty", name: dummyData.specialties[specialty], handler: () => returnToField("specialty") },
@@ -241,9 +254,15 @@ function DetailsModal({ returnToField, show, specialty, location, doctor, date, 
                 </Stack>
             </Modal.Body>
             <Modal.Footer>
-                <Button 
+                <Button
                     className="rounded-0"
-                    type="submit" 
+                    variant="danger"
+                    onClick={() => navigate("/appointments")}>
+                    Cancel
+                </Button>
+                <Button
+                    className="rounded-0"
+                    type="submit"
                     onClick={onSubmit}>
                     Confirm appointment
                 </Button>
