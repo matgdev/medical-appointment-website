@@ -12,7 +12,7 @@ export function Appointments(){
 
     const appointments = dummyData.map(({id, date, specialty, clinic, address, doctor}) => {
             return (
-                <Accordion.Item eventKey={id} className="bg-secondary-subtle text-secondary-emphasis mb-3">
+                <Accordion.Item key={id} eventKey={id} className="bg-secondary-subtle text-secondary-emphasis mb-3">
                     <Accordion.Header>
                         {   
                             Intl.DateTimeFormat(undefined, {
