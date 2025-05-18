@@ -1,6 +1,7 @@
 import React, { useState, type JSX } from "react";
 import { Button, Col, Form, Modal, ProgressBar, Row, Spinner, Stack } from "react-bootstrap";
 import { useNavigate } from "react-router";
+import "./Booking.css"
 
 
 const dummyData = {
@@ -69,8 +70,8 @@ export function Booking() {
         return (
             <>
                 <Stack className={`px-4 ${showConfirmationDialog === true ? "invisible" : "visible"}`} gap={3}>
-                    <Row className="m-0">
-                        <ProgressBar now={progress * 25} label={`${progress} / 4`} className="px-0" />
+                    <Row className="m-0" style={{height: "5px"}}>
+                        <ProgressBar now={progress * 25} className="px-0 h-100"/>
                     </Row>
 
                     <Row className="m-0 flex-grow-1">
@@ -164,7 +165,11 @@ function ControlGroup({ id, value, onChange, title, children, buttonDisabled, on
     const body = id === "date"
         ? <>{children}</>
         : (
-            <Form.Select onChange={onChange} value={value}>
+            <Form.Select 
+                onChange={onChange} 
+                value={value}
+                className="bg-secondary-subtle text-secondary-emphasis my-select"
+                >
                 <option value="-1">Click to show options...</option>
                 {children}
             </Form.Select>
@@ -176,11 +181,12 @@ function ControlGroup({ id, value, onChange, title, children, buttonDisabled, on
             className={`h-100 ${hide === true ? " d-none" : ""}`}
             as={Stack} gap={3}>
             
-            <h3>{title}</h3>
+            <Form.Label className="fs-3">{title}</Form.Label>
 
             {body}
 
-            <Button className="mt-auto"
+            <Button 
+                className="mt-auto rounded-0"
                 disabled={buttonDisabled}
                 onClick={onNext}
             >Next
@@ -214,6 +220,7 @@ function DetailsModal({ returnToField, show, specialty, location, doctor, date, 
                 <Col xs="12" sm="auto">
                     <Button
                         className="w-100"
+                        variant="outline-primary"
                         onClick={handler}>
                         Change
                     </Button>
@@ -234,7 +241,10 @@ function DetailsModal({ returnToField, show, specialty, location, doctor, date, 
                 </Stack>
             </Modal.Body>
             <Modal.Footer>
-                <Button type="submit" onClick={onSubmit}>
+                <Button 
+                    className="rounded-0"
+                    type="submit" 
+                    onClick={onSubmit}>
                     Confirm appointment
                 </Button>
             </Modal.Footer>
