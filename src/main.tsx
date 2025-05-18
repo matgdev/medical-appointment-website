@@ -10,6 +10,7 @@ createRoot(document.getElementById('root')!).render(
       <Routes>
         <Route path="/" element={<App frame="login"/>} />
         <Route path="/appointments" element={<App frame="appointments"/>} />
+        <Route path="/book-appointment" element={<App frame="booking"/>} />
       </Routes>
     </HashRouter>
   </StrictMode>,
