@@ -15,7 +15,6 @@ const dummyData = {
     dummyData.dateRange[0].setHours(0, 0, 0, 0);
     dummyData.dateRange[1].setHours(0, 0, 0, 0);
     dummyData.dateRange[1].setMonth(dummyData.dateRange[1].getMonth() + 1);
-
 }
 
 export function Booking() {
@@ -94,7 +93,7 @@ export function Booking() {
                                 hide={progress !== 2}
                                 onChange={(event) => setLocation(Number(event.target.value))}
                                 value={location}
-                                title="Select Location"
+                                title="Select location"
                                 buttonDisabled={(location >= 0 && location < locations.length) === false}
                                 onNext={() => setProgress((p) => p + 1)}
                             >
@@ -106,7 +105,7 @@ export function Booking() {
                                 hide={progress !== 3}
                                 onChange={(event) => setDoctor(Number(event.target.value))}
                                 value={doctor}
-                                title="Select Doctor"
+                                title="Select doctor"
                                 buttonDisabled={(doctor >= 0 && doctor < doctors.length) === false}
                                 onNext={() => setProgress((p) => p + 1)}
                             >
