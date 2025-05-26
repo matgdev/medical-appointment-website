@@ -1,4 +1,4 @@
-import { Accordion, Button, Row, Stack } from "react-bootstrap";
+import { Accordion, Button, Stack } from "react-bootstrap";
 import "./Appointments.css"
 import { useNavigate } from "react-router";
 

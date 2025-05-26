@@ -1,4 +1,4 @@
-import React, { useState, type JSX } from "react";
+import { useState, type JSX } from "react";
 import { Button, Col, Form, Modal, ProgressBar, Row, Spinner, Stack } from "react-bootstrap";
 import { useNavigate } from "react-router";
 import "./Booking.css"
